@@ -14,7 +14,7 @@ public class Bot extends Robot{
 	public int deckX, deckY, flagX, flagY, borderX, borderY;
 	public Bot(GraphicsDevice screen) throws AWTException {
 		super(screen);
-		DomParser parser = new DomParser("/YugiohBot/src/com/yugioh/bot/config.xml");
+		//DomParser parser = new DomParser("/YugiohBot/src/com/yugioh/bot/config.xml");
 		
 	}
 	public void checkForCancel() {
@@ -84,15 +84,16 @@ public class Bot extends Robot{
 		checkForCancel();
 		delay(8000);
 		checkForCancel();
-		checkForCancel();
 		pressEnter();
 		delay(3000);
+		checkForCancel();
 		pressEnter();
 		checkForCancel();
 		delay(5000);
 		checkForCancel();
 		mouseMove(1460, 757); System.out.println("Moving Mouse to Deck");
 		delay(8000);
+		checkForCancel();
 		boolean myTurn = false;
 		Dimension screenDim = Toolkit.getDefaultToolkit().getScreenSize();
 		BufferedImage image;
@@ -104,9 +105,10 @@ public class Bot extends Robot{
 			if(getPixelColor(1432,661).getBlue() >247 && getPixelColor(1432,661).getRed() > 250 && getPixelColor(1432,661).getGreen() >250) {
 				myTurn = true;
 			}
+			checkForCancel();
 			mouseMove(1461,757);
 			mouseMove(1460,757);
-
+			delay(250);
 			
 		}
 		click();

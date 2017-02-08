@@ -45,7 +45,7 @@ public class MainWindow {
 	private AtomicBoolean isRunning = new AtomicBoolean();
 	private AtomicBoolean isCoordRunning = new AtomicBoolean();
 	public int workerNum = 0;
-	private SwingWorker worker = null, coordWorker;
+	private SwingWorker worker, coordWorker;
 	public SwingWorker getWorker() {
 		return worker;
 	}
@@ -121,6 +121,28 @@ public class MainWindow {
 		gbl_panel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
+		
+		JLabel lblStopped = new JLabel("STOPPED");
+		GridBagConstraints gbc_lblStopped = new GridBagConstraints();
+		gbc_lblStopped.insets = new Insets(0, 0, 5, 5);
+		gbc_lblStopped.gridx = 3;
+		gbc_lblStopped.gridy = 1;
+		panel.add(lblStopped, gbc_lblStopped);
+		
+		JButton btnStop = new JButton("Stop");
+		btnStop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				worker.cancel(true);
+				worker = null;
+				isRunning.set(false);
+			}
+		});
+		GridBagConstraints gbc_btnStop = new GridBagConstraints();
+		gbc_btnStop.insets = new Insets(0, 0, 5, 5);
+		gbc_btnStop.gridx = 2;
+		gbc_btnStop.gridy = 2;
+		panel.add(btnStop, gbc_btnStop);
 
 		
 		
@@ -245,15 +267,17 @@ public class MainWindow {
 		final JToggleButton tglbtnCoordTool = new JToggleButton("Coord Tool");
 		tglbtnCoordTool.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
+				if(isCoordRunning.get()){
+					System.out.println("Cancelling coordWorker");
+					isCoordRunning.set(false);
+					coordWorker.cancel(true);
+					coordWorker = null;
+					return;
+				}
 				coordWorker = new SwingWorker<Integer, Integer[]>(){
 					@Override
 					protected Integer doInBackground() throws Exception {
-						if(!tglbtnCoordTool.isSelected()){
-							System.out.println("Cancelling coordWorker");
-							isCoordRunning.set(false);
-							coordWorker.cancel(true);
-							coordWorker = null;
-						}
+						
 						GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 						GraphicsDevice gd = ge.getDefaultScreenDevice();
 						Bot bot = new Bot(gd);
@@ -274,66 +298,31 @@ public class MainWindow {
 			}
 		});
 		
-		final JToggleButton tglbtnRun = new JToggleButton("Run");
-		tglbtnRun.addPropertyChangeListener(new PropertyChangeListener() {
-			public void propertyChange(PropertyChangeEvent evt) {
-			}
-		});
-		tglbtnRun.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-			}
-		});
-		tglbtnRun.addMouseListener(new MouseAdapter() {//Start the SwingWorker thread that run the bot code
+		final JButton tglbtnRun = new JButton("Run");
+		tglbtnRun.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(getWorker() != null) {
-					System.out.println("Killing Bot :(");
-					tglbtnRun.setText("Run");
-					if(getWorker().cancel(true)) {System.out.println("COULD NOT KILL WORKER");}
-					setWorker(null);
-					setIsRunning(new AtomicBoolean(false));
+				if(isRunning.get()){
+					System.out.println("Bot is already running...");
+					return;
 				}
-				System.out.println("Running Bot: isRunning = " + isRunning);
-				if(tglbtnRun.isSelected() == true) {
-					setIsRunning(new AtomicBoolean(true));
-					tglbtnRun.setText("Stop");
-				}
-				else {
-					tglbtnRun.setText("Run");
-					setIsRunning(new AtomicBoolean(false));
-				}
-			    setWorker(new SwingWorker<Void, Void>(){
-					protected Void doInBackground() throws Exception {
-						tglbtnRun.setText("Stop");
-						System.out.println("...IN SWINGWORKER");
+				worker = new SwingWorker<Integer, Integer[]>(){
+					@Override
+					protected Integer doInBackground() throws Exception {
+						
 						GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 						GraphicsDevice gd = ge.getDefaultScreenDevice();
 						Bot bot = new Bot(gd);
-						while(!isCancelled()) {
-						if(!isBuy.get()) {
+						isRunning.set(true);
+						while(isRunning.get() == true) {
+							System.out.println("isCoordRunning is: " + isCoordRunning.get());
+							bot.surrender();
 							
-							while(isRunning.get()) {
-								System.out.println(Thread.currentThread());
-								bot.surrender();
-							}
-						}
-						else {
-							while(isRunning.get()) {
-								bot.buy();
-							}
-						}
-						
 						}
 						return null;
 					}
-					protected void done() {
-						System.out.println(getWorker() + "WORKER KILLED");
-					}
-				});System.out.println(getIsRunning());
-				if(isRunning.get()) {
-					workerNum++;
-					System.out.println("gonna execute the worker");
-					getWorker().execute();
-				}
+					
+				};worker.execute();
 			}
 		});
 		
