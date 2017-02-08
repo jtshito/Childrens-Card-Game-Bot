@@ -3,6 +3,7 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GraphicsDevice;
+import java.awt.MouseInfo;
 import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -10,10 +11,11 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 public class Bot extends Robot{
-
+	public int deckX, deckY, flagX, flagY, borderX, borderY;
 	public Bot(GraphicsDevice screen) throws AWTException {
 		super(screen);
-		// TODO Auto-generated constructor stub
+		DomParser parser = new DomParser("/YugiohBot/src/com/yugioh/bot/config.xml");
+		
 	}
 	public void checkForCancel() {
 		System.out.println(Thread.currentThread().isInterrupted());
@@ -30,9 +32,11 @@ public class Bot extends Robot{
 		checkForCancel();
 		for(int i = 0; i<10;i++) {System.out.println(i + " " + Thread.currentThread().isInterrupted()); delay(500);}
 	}
-	public int[] getCoord() {
-		int[] coord = {0,0};
-		
+	public Integer[] getCoord() {
+		Integer[] coord = {0,0};
+		checkForCancel();
+		coord[0] = MouseInfo.getPointerInfo().getLocation().x;
+		coord[1] = MouseInfo.getPointerInfo().getLocation().y;
 		return coord;
 	}
 	/*Duelist Challenge Cycle
