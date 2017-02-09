@@ -33,10 +33,14 @@ public class Bot extends Robot{
 		for(int i = 0; i<10;i++) {System.out.println(i + " " + Thread.currentThread().isInterrupted()); delay(500);}
 	}
 	public Integer[] getCoord() {
-		Integer[] coord = {0,0};
+		Integer[] coord = {0,0,0,0,0};
 		checkForCancel();
 		coord[0] = MouseInfo.getPointerInfo().getLocation().x;
 		coord[1] = MouseInfo.getPointerInfo().getLocation().y;
+		Color color = getPixelColor(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
+		coord[2] = color.getRed();
+		coord[3] = color.getGreen();
+		coord[4] = color.getBlue();
 		return coord;
 	}
 	/*Duelist Challenge Cycle

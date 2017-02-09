@@ -153,6 +153,13 @@ public class MainWindow {
 		gbc_lblCoord.gridy = 2;
 		panel.add(lblCoord, gbc_lblCoord);
 		
+		final JLabel lblRgb = new JLabel("RGB");
+		GridBagConstraints gbc_lblRgb = new GridBagConstraints();
+		gbc_lblRgb.insets = new Insets(0, 0, 5, 0);
+		gbc_lblRgb.gridx = 4;
+		gbc_lblRgb.gridy = 3;
+		panel.add(lblRgb, gbc_lblRgb);
+		
 		JLabel lblDeck = new JLabel("Deck");
 		GridBagConstraints gbc_lblDeck = new GridBagConstraints();
 		gbc_lblDeck.anchor = GridBagConstraints.EAST;
@@ -292,6 +299,7 @@ public class MainWindow {
 					protected void process(List<Integer[]> coords) {
 						Integer[] mostRecentArray = coords.get(coords.size()-1);
 						lblCoord.setText(mostRecentArray[0].toString() + ", " + mostRecentArray[1].toString());
+						lblRgb.setText(mostRecentArray[2] + ", " + mostRecentArray[3] + ", " + mostRecentArray[4]);
 					}
 					
 				};coordWorker.execute();
