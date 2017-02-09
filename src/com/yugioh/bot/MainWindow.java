@@ -130,7 +130,7 @@ public class MainWindow {
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
-		JLabel lblStopped = new JLabel("STOPPED");
+		final JLabel lblStopped = new JLabel("STOPPED");
 		GridBagConstraints gbc_lblStopped = new GridBagConstraints();
 		gbc_lblStopped.insets = new Insets(0, 0, 5, 5);
 		gbc_lblStopped.gridx = 3;
@@ -141,6 +141,7 @@ public class MainWindow {
 		btnStop.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				lblStopped.setText("Stopped");
 				worker.cancel(true);
 				worker = null;
 				isRunning.set(false);
@@ -426,6 +427,8 @@ public class MainWindow {
 		tglbtnRun.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if(isBuy.get()) {lblStopped.setText("Running Buy");}
+				if(!isBuy.get()) {lblStopped.setText("Running Surrender");}
 				if(isRunning.get()){
 					System.out.println("Bot is already running...");
 					return;
@@ -440,8 +443,12 @@ public class MainWindow {
 						isRunning.set(true);
 						while(isRunning.get() == true) {
 							System.out.println("isCoordRunning is: " + isCoordRunning.get());
-							bot.surrender();
-							
+							if(isBuy.get() == false) {
+								bot.surrender();
+							}
+							if(isBuy.get() == true) {
+								bot.buy();
+							}
 						}
 						return null;
 					}
@@ -453,7 +460,7 @@ public class MainWindow {
 		JRadioButton rdbtnSurrender = new JRadioButton("Surrender");
 		rdbtnSurrender.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				setBuy(new AtomicBoolean(false));
+				isBuy.set(false);
 			}
 		});
 		
@@ -477,7 +484,7 @@ public class MainWindow {
 		JRadioButton rdbtnBuyPacks = new JRadioButton("Buy Packs");
 		rdbtnBuyPacks.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				setBuy(new AtomicBoolean(true));
+				isBuy.set(true);;
 			}
 		});
 		buttonGroup.add(rdbtnBuyPacks);
