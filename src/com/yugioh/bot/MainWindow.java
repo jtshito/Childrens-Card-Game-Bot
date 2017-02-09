@@ -31,6 +31,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.beans.PropertyChangeListener;
@@ -82,6 +83,12 @@ public class MainWindow {
 	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
+	private JTextField textField_8;
+	private JTextField textField_9;
+	private JTextField textField_10;
+	private JTextField textField_11;
+	private JTextField textField_12;
+	private JTextField textField_13;
 
 	/**
 	 * Launch the application.
@@ -111,16 +118,16 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 512, 318);
+		frame.setBounds(100, 100, 675, 401);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{87, 56, 38, 125, 95, 0};
-		gbl_panel.rowHeights = new int[]{30, 25, 25, 35, 16, 0, 0, 0, 0, 0, 0};
-		gbl_panel.columnWeights = new double[]{0.0, 1.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowHeights = new int[]{30, 25, 25, 35, 31, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 1.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JLabel lblStopped = new JLabel("STOPPED");
@@ -161,6 +168,13 @@ public class MainWindow {
 		gbc_lblRgb.gridy = 3;
 		panel.add(lblRgb, gbc_lblRgb);
 		
+		JLabel label_1 = new JLabel("");
+		GridBagConstraints gbc_label_1 = new GridBagConstraints();
+		gbc_label_1.insets = new Insets(0, 0, 5, 0);
+		gbc_label_1.gridx = 4;
+		gbc_label_1.gridy = 4;
+		panel.add(label_1, gbc_label_1);
+		
 		JLabel lblDeck = new JLabel("Deck");
 		GridBagConstraints gbc_lblDeck = new GridBagConstraints();
 		gbc_lblDeck.anchor = GridBagConstraints.EAST;
@@ -191,6 +205,13 @@ public class MainWindow {
 		panel.add(textField_4, gbc_textField_4);
 		textField_4.setColumns(10);
 		textField_4.setText(Integer.toString(coords.get(1)));
+		
+		JLabel label = new JLabel("");
+		GridBagConstraints gbc_label = new GridBagConstraints();
+		gbc_label.insets = new Insets(0, 0, 5, 0);
+		gbc_label.gridx = 4;
+		gbc_label.gridy = 5;
+		panel.add(label, gbc_label);
 		
 		JLabel lblYes = new JLabel("Yes");
 		GridBagConstraints gbc_lblYes = new GridBagConstraints();
@@ -276,11 +297,88 @@ public class MainWindow {
 		textField_7.setColumns(10);
 		textField_7.setText(Integer.toString(coords.get(7)));
 		
+		textField_8 = new JTextField();
+		GridBagConstraints gbc_textField_8 = new GridBagConstraints();
+		gbc_textField_8.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_8.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_8.gridx = 1;
+		gbc_textField_8.gridy = 9;
+		panel.add(textField_8, gbc_textField_8);
+		textField_8.setColumns(10);
+		textField_8.setText(Integer.toString(coords.get(8)));
+		
+		textField_9 = new JTextField();
+		GridBagConstraints gbc_textField_9 = new GridBagConstraints();
+		gbc_textField_9.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_9.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_9.gridx = 2;
+		gbc_textField_9.gridy = 9;
+		panel.add(textField_9, gbc_textField_9);
+		textField_9.setColumns(10);
+		textField_9.setText(Integer.toString(coords.get(9)));
+		
+		textField_10 = new JTextField();
+		GridBagConstraints gbc_textField_10 = new GridBagConstraints();
+		gbc_textField_10.insets = new Insets(0, 0, 5, 5);
+		gbc_textField_10.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_10.gridx = 3;
+		gbc_textField_10.gridy = 9;
+		panel.add(textField_10, gbc_textField_10);
+		textField_10.setColumns(10);
+		textField_10.setText(Integer.toString(coords.get(10)));
+		
+		textField_11 = new JTextField();
+		GridBagConstraints gbc_textField_11 = new GridBagConstraints();
+		gbc_textField_11.insets = new Insets(0, 0, 0, 5);
+		gbc_textField_11.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_11.gridx = 1;
+		gbc_textField_11.gridy = 10;
+		panel.add(textField_11, gbc_textField_11);
+		textField_11.setColumns(10);
+		textField_11.setText(Integer.toString(coords.get(11)));
+		
+		textField_12 = new JTextField();
+		GridBagConstraints gbc_textField_12 = new GridBagConstraints();
+		gbc_textField_12.insets = new Insets(0, 0, 0, 5);
+		gbc_textField_12.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_12.gridx = 2;
+		gbc_textField_12.gridy = 10;
+		panel.add(textField_12, gbc_textField_12);
+		textField_12.setColumns(10);
+		textField_12.setText(Integer.toString(coords.get(12)));
+		
+		textField_13 = new JTextField();
+		GridBagConstraints gbc_textField_13 = new GridBagConstraints();
+		gbc_textField_13.insets = new Insets(0, 0, 0, 5);
+		gbc_textField_13.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_13.gridx = 3;
+		gbc_textField_13.gridy = 10;
+		panel.add(textField_13, gbc_textField_13);
+		textField_13.setColumns(10);
 		JButton btnUpdateCoordinates = new JButton("Update Coordinates");
+		textField_13.setText(Integer.toString(coords.get(13)));
+		
 		btnUpdateCoordinates.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				DomParser parser = new DomParser("config.xml");
+				List<Integer> coords = new ArrayList();
+				coords.add(Integer.valueOf((textField.getText())));
+				coords.add(Integer.valueOf((textField_4.getText())));
+				coords.add(Integer.valueOf((textField_1.getText())));
+				coords.add(Integer.valueOf((textField_5.getText())));
+				coords.add(Integer.valueOf((textField_2.getText())));
+				coords.add(Integer.valueOf((textField_6.getText())));
+				coords.add(Integer.valueOf((textField_3.getText())));
+				coords.add(Integer.valueOf((textField_7.getText())));
+				coords.add(Integer.valueOf((textField_8.getText())));
+				coords.add(Integer.valueOf((textField_9.getText())));
+				coords.add(Integer.valueOf((textField_10.getText())));
+				coords.add(Integer.valueOf((textField_11.getText())));
+				coords.add(Integer.valueOf((textField_12.getText())));
+				coords.add(Integer.valueOf((textField_13.getText())));
+				
+				parser.modifyCoordinates(coords);
 			}
 		});
 		GridBagConstraints gbc_btnUpdateCoordinates = new GridBagConstraints();
@@ -388,6 +486,25 @@ public class MainWindow {
 		gbc_rdbtnBuyPacks.gridx = 0;
 		gbc_rdbtnBuyPacks.gridy = 2;
 		panel.add(rdbtnBuyPacks, gbc_rdbtnBuyPacks);
+		
+		JLabel lblFlagRgb = new JLabel("Flag RGB");
+		GridBagConstraints gbc_lblFlagRgb = new GridBagConstraints();
+		gbc_lblFlagRgb.anchor = GridBagConstraints.EAST;
+		gbc_lblFlagRgb.insets = new Insets(0, 0, 5, 5);
+		gbc_lblFlagRgb.gridx = 0;
+		gbc_lblFlagRgb.gridy = 9;
+		panel.add(lblFlagRgb, gbc_lblFlagRgb);
+		
+		
+		JLabel lblBorderRgb = new JLabel("Border RGB");
+		GridBagConstraints gbc_lblBorderRgb = new GridBagConstraints();
+		gbc_lblBorderRgb.anchor = GridBagConstraints.EAST;
+		gbc_lblBorderRgb.insets = new Insets(0, 0, 0, 5);
+		gbc_lblBorderRgb.gridx = 0;
+		gbc_lblBorderRgb.gridy = 10;
+		panel.add(lblBorderRgb, gbc_lblBorderRgb);
+		
+		
 	}
 
 	private class SwingAction extends AbstractAction {

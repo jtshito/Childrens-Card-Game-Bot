@@ -10,11 +10,31 @@ import java.awt.Toolkit;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 public class Bot extends Robot{
-	public int deckX, deckY, flagX, flagY, borderX, borderY;
+	public int deckX, deckY, yesX, yesY, flagX, flagY, borderX, borderY, flagRed, flagGreen, flagBlue, borderRed, borderGreen, borderBlue;
 	public Bot(GraphicsDevice screen) throws AWTException {
 		super(screen);
 		DomParser parser = new DomParser("config.xml");
+		List<Integer> xmlData = parser.parseCoordinates();
+		
+		deckX = xmlData.remove(0);
+		deckY = xmlData.remove(0);
+		yesX = xmlData.remove(0);
+		yesY = xmlData.remove(0);
+		flagX = xmlData.remove(0);
+		flagY = xmlData.remove(0);
+		borderX = xmlData.remove(0);
+		borderY = xmlData.remove(0);
+		flagRed= xmlData.remove(0);
+		flagGreen = xmlData.remove(0);
+		flagBlue = xmlData.remove(0);
+		borderRed = xmlData.remove(0);
+		borderGreen = xmlData.remove(0);
+		borderBlue = xmlData.remove(0);
+
+		
 	}
 	public void checkForCancel() {
 		System.out.println(Thread.currentThread().isInterrupted());
@@ -94,7 +114,7 @@ public class Bot extends Robot{
 		checkForCancel();
 		delay(5000);
 		checkForCancel();
-		mouseMove(1460, 757); System.out.println("Moving Mouse to Deck");
+		mouseMove(deckX, deckY); System.out.println("Moving Mouse to Deck");
 		delay(8000);
 		checkForCancel();
 		boolean myTurn = false;
@@ -105,12 +125,12 @@ public class Bot extends Robot{
 			checkForCancel();
 			System.out.println("Searching for Flag");
 			//image = createScreenCapture(new Rectangle(0,0,(int) screenDim.getWidth(), (int) screenDim.getHeight()));
-			if(getPixelColor(1432,661).getBlue() >247 && getPixelColor(1432,661).getRed() > 250 && getPixelColor(1432,661).getGreen() >250) {
+			if(getPixelColor(flagX,flagY).getBlue() >flagBlue && getPixelColor(flagX,flagY).getRed() > flagRed && getPixelColor(flagX,flagY).getGreen() >flagGreen) {
 				myTurn = true;
 			}
 			checkForCancel();
-			mouseMove(1461,757);
-			mouseMove(1460,757);
+			mouseMove(deckX+1,deckY);
+			mouseMove(deckX,deckY);
 			delay(250);
 			
 		}
@@ -118,7 +138,7 @@ public class Bot extends Robot{
 		checkForCancel();
 		pressEnter();
 		delay(500);
-		mouseMove(903,577); System.out.println("Moving Mouse to YES");
+		mouseMove(yesX,yesY); System.out.println("Moving Mouse to YES");
 		checkForCancel();
 		click();
 		delay(750);
@@ -152,7 +172,7 @@ public class Bot extends Robot{
 			checkForCancel();
 			System.out.println("Searching for Border");
 			//image = createScreenCapture(new Rectangle(0,0,(int) screenDim.getWidth(), (int) screenDim.getHeight()));
-			if(getPixelColor(1465,660).getRed() >252) {
+			if(getPixelColor(borderX,borderY).getRed() > borderRed) {
 				myTurn = true;
 			}
 			delay(500);
