@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
@@ -110,7 +111,7 @@ public class MainWindow {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 512, 306);
+		frame.setBounds(100, 100, 512, 318);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
@@ -168,6 +169,8 @@ public class MainWindow {
 		gbc_lblDeck.gridy = 5;
 		panel.add(lblDeck, gbc_lblDeck);
 		
+		DomParser parser = new DomParser("config.xml");
+		List<Integer> coords = parser.parseCoordinates();
 		textField = new JTextField();
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
@@ -176,6 +179,8 @@ public class MainWindow {
 		gbc_textField.gridy = 5;
 		panel.add(textField, gbc_textField);
 		textField.setColumns(10);
+		textField.setText(Integer.toString(coords.get(0)));
+	
 		
 		textField_4 = new JTextField();
 		GridBagConstraints gbc_textField_4 = new GridBagConstraints();
@@ -185,6 +190,7 @@ public class MainWindow {
 		gbc_textField_4.gridy = 5;
 		panel.add(textField_4, gbc_textField_4);
 		textField_4.setColumns(10);
+		textField_4.setText(Integer.toString(coords.get(1)));
 		
 		JLabel lblYes = new JLabel("Yes");
 		GridBagConstraints gbc_lblYes = new GridBagConstraints();
@@ -202,6 +208,7 @@ public class MainWindow {
 		gbc_textField_1.gridy = 6;
 		panel.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
+		textField_1.setText(Integer.toString(coords.get(2)));
 		
 		textField_5 = new JTextField();
 		GridBagConstraints gbc_textField_5 = new GridBagConstraints();
@@ -211,6 +218,7 @@ public class MainWindow {
 		gbc_textField_5.gridy = 6;
 		panel.add(textField_5, gbc_textField_5);
 		textField_5.setColumns(10);
+		textField_5.setText(Integer.toString(coords.get(3)));
 		
 		JLabel lblFlag = new JLabel("Flag");
 		GridBagConstraints gbc_lblFlag = new GridBagConstraints();
@@ -228,6 +236,7 @@ public class MainWindow {
 		gbc_textField_2.gridy = 7;
 		panel.add(textField_2, gbc_textField_2);
 		textField_2.setColumns(10);
+		textField_2.setText(Integer.toString(coords.get(4)));
 		
 		textField_6 = new JTextField();
 		GridBagConstraints gbc_textField_6 = new GridBagConstraints();
@@ -237,6 +246,7 @@ public class MainWindow {
 		gbc_textField_6.gridy = 7;
 		panel.add(textField_6, gbc_textField_6);
 		textField_6.setColumns(10);
+		textField_6.setText(Integer.toString(coords.get(5)));
 		
 		JLabel lblBorder = new JLabel("Border");
 		GridBagConstraints gbc_lblBorder = new GridBagConstraints();
@@ -254,6 +264,7 @@ public class MainWindow {
 		gbc_textField_3.gridy = 8;
 		panel.add(textField_3, gbc_textField_3);
 		textField_3.setColumns(10);
+		textField_3.setText(Integer.toString(coords.get(6)));
 		
 		textField_7 = new JTextField();
 		GridBagConstraints gbc_textField_7 = new GridBagConstraints();
@@ -263,8 +274,15 @@ public class MainWindow {
 		gbc_textField_7.gridy = 8;
 		panel.add(textField_7, gbc_textField_7);
 		textField_7.setColumns(10);
+		textField_7.setText(Integer.toString(coords.get(7)));
 		
 		JButton btnUpdateCoordinates = new JButton("Update Coordinates");
+		btnUpdateCoordinates.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DomParser parser = new DomParser("config.xml");
+			}
+		});
 		GridBagConstraints gbc_btnUpdateCoordinates = new GridBagConstraints();
 		gbc_btnUpdateCoordinates.insets = new Insets(0, 0, 5, 5);
 		gbc_btnUpdateCoordinates.gridx = 3;

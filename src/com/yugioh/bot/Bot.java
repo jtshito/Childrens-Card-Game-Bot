@@ -14,8 +14,7 @@ public class Bot extends Robot{
 	public int deckX, deckY, flagX, flagY, borderX, borderY;
 	public Bot(GraphicsDevice screen) throws AWTException {
 		super(screen);
-		//DomParser parser = new DomParser("/YugiohBot/src/com/yugioh/bot/config.xml");
-		
+		DomParser parser = new DomParser("config.xml");
 	}
 	public void checkForCancel() {
 		System.out.println(Thread.currentThread().isInterrupted());
