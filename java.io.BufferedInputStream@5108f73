@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <coordinates>
-	<deck xcoord="1460" ycoord="2" />
+	<deck xcoord="1460" ycoord="21" />
 	<yes xcoord="903" ycoord="557" />
 	<flag xcoord="1432" ycoord="3" />
 	<border xcoord="1465" ycoord="4" />
-	<flagrgb red="1" green="2" blue="3" />
+	<flagrgb red="1" green="222" blue="3" />
 	<borderrgb red="250" green="4" blue="250" />
 </coordinates>

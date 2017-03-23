@@ -14,31 +14,30 @@ import java.util.ArrayList;
 import java.util.List;
 public class Bot extends Robot{
 	public int deckX, deckY, yesX, yesY, flagX, flagY, borderX, borderY, flagRed, flagGreen, flagBlue, borderRed, borderGreen, borderBlue;
-	public Bot(GraphicsDevice screen) throws AWTException {
+	public Bot(GraphicsDevice screen, PrefController prefController) throws AWTException {
 		super(screen);
-		DomParser parser = new DomParser("config.xml");
-		List<Integer> xmlData = parser.parseCoordinates();
 		
-		deckX = xmlData.remove(0);
-		deckY = xmlData.remove(0);
-		yesX = xmlData.remove(0);
-		yesY = xmlData.remove(0);
-		flagX = xmlData.remove(0);
-		flagY = xmlData.remove(0);
-		borderX = xmlData.remove(0);
-		borderY = xmlData.remove(0);
-		flagRed= xmlData.remove(0);
-		flagGreen = xmlData.remove(0);
-		flagBlue = xmlData.remove(0);
-		borderRed = xmlData.remove(0);
-		borderGreen = xmlData.remove(0);
-		borderBlue = xmlData.remove(0);
+		deckX = Integer.parseInt(prefController.getPref("deckX"));
+		deckY = Integer.parseInt(prefController.getPref("deckY"));
+		yesX = Integer.parseInt(prefController.getPref("yesX"));
+		yesY = Integer.parseInt(prefController.getPref("yesY"));
+		flagX = Integer.parseInt(prefController.getPref("flagX"));
+		flagY = Integer.parseInt(prefController.getPref("flagY"));
+		borderX = Integer.parseInt(prefController.getPref("borderX"));
+		borderY = Integer.parseInt(prefController.getPref("borderY"));
+		flagRed= Integer.parseInt(prefController.getPref("flagRed"));
+		flagGreen = Integer.parseInt(prefController.getPref("flagGreen"));
+		flagBlue = Integer.parseInt(prefController.getPref("flagBlue"));
+		borderRed = Integer.parseInt(prefController.getPref("borderRed"));
+		borderGreen = Integer.parseInt(prefController.getPref("borderGreen"));
+		borderBlue = Integer.parseInt(prefController.getPref("borderBlue"));
 
 		
 	}
 	public void checkForCancel() {
 		System.out.println(Thread.currentThread().isInterrupted());
 		try {
+			System.out.println("CHECKING FOR CANCEL");
 			Thread.sleep(1);
 			return;
 		} catch (InterruptedException e) {
