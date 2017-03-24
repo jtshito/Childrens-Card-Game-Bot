@@ -1,4 +1,7 @@
 # Childrens-Card-Game-Bot
+
+Download the JAR here https://sabercathost.com/4L0s/yugi.jar
+
 BUGS/ISSUES
 
 -The bot won't stop until the current cycle is completed. You must alt-F4 or otherwise kill the application to free your cursor.
