@@ -8,7 +8,7 @@ BUGS/ISSUES
 Do you play the greatest children's card game ever? Do you play it on Yugioh! Legacy of the Duelist? 
 
 If you do, you have probably noticed how much time, how many packs, how many duels, to get 
-those couple cards you need to finish your netdeck. Well here is your savior.
+those couple cards you need to finish your netdeck. Well here is your savior(if you want cards slightly more legitimately than a saved game file).
 
 My Childrens-Card-Game-Bot will autonomously earn you DP(heh) and buy packs while you go play a real game(ping pong perhaps)!
 
